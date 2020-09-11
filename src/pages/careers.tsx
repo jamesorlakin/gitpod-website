@@ -131,6 +131,7 @@ const jobs: ExpandableJobProps[] = [
             }
         ],
         textAfterTheLists: 'We celebrate diversity, and we are committed to an equal and inclusive employment environment.',
+        date: 'Feb 24, 2020'
     },
     {
         title: 'UX Developer',
@@ -151,7 +152,8 @@ const jobs: ExpandableJobProps[] = [
             }
         ],
         textAfterTheLists: 'We celebrate diversity, and we are committed to an equal and inclusive employment environment.',
-        rendered: true
+        rendered: true,
+        date: 'Jul 15, 2020'
     }
 ]
 
