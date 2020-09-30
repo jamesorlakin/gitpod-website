@@ -7,6 +7,7 @@ const StyledDescripion = styled.span`
     position: relative;
 
     button {
+        position: relative;
         display: inline-block;
         height: 1.4rem;
         width: 1.4rem;
@@ -24,6 +25,16 @@ const StyledDescripion = styled.span`
 
         @media(min-width: calc(${sizes.breakpoints.lg} + 1px)) {
             transform: translateX(1rem);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            display: block;
+            height: 3rem;
+            width: 3rem;
         }
     }
 
@@ -64,42 +75,41 @@ const StyledDescripion = styled.span`
     }
 `
 
-class Description extends React.Component<{description: string, textPosition?: string}, {}> {
+class Description extends React.Component<{ description: string | JSX.Element; textPosition?: string }, {}> {
+  state = {
+    isRendered: false
+  }
 
-    state={
-        isRendered: false
-    }
+  handleClick = () => {
+    this.setState({ isRendered: !this.state.isRendered })
+  }
 
-    handleClick = () => {
-        this.setState({isRendered: !this.state.isRendered})
-    }
+  handleMouseEnter = () => {
+    this.setState({ isRendered: true })
+  }
 
-    handleMouseEnter = () => {
-        this.setState({isRendered: true})
-    }
+  handleMouseLeave = () => {
+    this.setState({ isRendered: false })
+  }
 
-    handleMouseLeave = () => {
-        this.setState({isRendered: false})
-    }
+  render() {
+    const { isRendered } = this.state
+    const { description } = this.props
+    const positionBottom = this.props.textPosition === 'bottom'
 
-    render() {
-        const { isRendered } = this.state
-        const { description } = this.props
-        const positionBottom = this.props.textPosition === 'bottom'
-
-        return (
-            <StyledDescripion
-                className="description"
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-                onFocus={this.handleMouseEnter}
-                onBlur={this.handleMouseLeave}
-            >
-                <button onClick={this.handleClick}>?</button>
-                { isRendered ? <div className={`${positionBottom ? 'bottom' : ''} description__text`}>{ description }</div> : null }
-            </StyledDescripion>
-        )
-    }
+    return (
+      <StyledDescripion
+        className="description"
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        onFocus={this.handleMouseEnter}
+        onBlur={this.handleMouseLeave}
+      >
+        <button onClick={this.handleClick}>?</button>
+        {isRendered ? <div className={`${positionBottom ? 'bottom' : ''} description__text`}>{description}</div> : null}
+      </StyledDescripion>
+    )
+  }
 }
 
 export default Description
